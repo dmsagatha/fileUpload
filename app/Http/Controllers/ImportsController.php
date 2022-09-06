@@ -131,12 +131,12 @@ class ImportsController extends Controller
           'email'    => $csvLine[1],
           'password' => bcrypt($csvLine[2]),
           /* 'created_at' => $now,
-          'updated_at' => $now, */
-        /* ];
+          'updated_at' => $now,
+        ];
       }
     }
 
-    User::insert($usersArray); */
+    User::updateOrCreate($usersArray); */
 
     fclose($file);
 

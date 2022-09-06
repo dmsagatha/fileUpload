@@ -20,7 +20,7 @@ class ImportsController extends Controller
   public function importUsers(Request $request)
   {
     $this->validate($request, [
-        'file' => 'required|file|mimes:csv'
+      'file' => 'required|file|mimes:csv'
     ]);
 
     $path    = $request->file('file')->getRealPath();
@@ -90,7 +90,7 @@ class ImportsController extends Controller
     if (is_array($value))
     {
       $clean = [];
-      
+
       foreach ($value as $key => $val)
       {
         $clean[$key] = mb_convert_encoding($val, 'UTF-8', 'UTF-8');
@@ -98,5 +98,48 @@ class ImportsController extends Controller
       return $clean;
     }
     return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+  }
+
+  /**
+   * https://www.youtube.com/watch?v=nGcW4jR9vLg
+   */
+  public function import2(Request $request)
+  {
+    $users = User::pluck('email')->toArray();
+
+    $file = fopen($request->csv_file->getRealPath(), 'r');
+
+    while ($csvLine = fgetcsv($file)) {
+      if (!in_array($csvLine[2], $users)) {
+        User::updateOrCreate(
+          ['email' => $csvLine[1]],
+          [
+          'name'     => $csvLine[0],
+          'email'    => $csvLine[1],
+          'password' => bcrypt($csvLine[2]),
+        ]);
+      }
+    }
+
+    /* $usersArray = [];
+    $now = now()->toDayDateTimeString();
+
+    while ($csvLine = fgetcsv($file)) {
+      if (!in_array($csvLine[2], $users)) {
+        $usersArray[] = [
+          'name'     => $csvLine[0],
+          'email'    => $csvLine[1],
+          'password' => bcrypt($csvLine[2]),
+          /* 'created_at' => $now,
+          'updated_at' => $now, */
+        /* ];
+      }
+    }
+
+    User::insert($usersArray); */
+
+    fclose($file);
+
+    return to_route('users.upload');
   }
 }

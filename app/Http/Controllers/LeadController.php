@@ -27,14 +27,13 @@ class LeadController extends Controller
       "csv_file" => "required",
     ]);
 
-    /* $file = $request->file("csv_file");
-    $csvData = file_get_contents($file); */
+    $file = $request->file("csv_file");
+    $csvData = file_get_contents($file);
 
-    //$rows = array_map("str_getcsv", explode("\n", $csvData));
-    // $rows = array_map('str_getcsv', file($csvData));
-    $rows = collect(array_map('str_getcsv', file($request->file('csv_file')->getRealPath())));
+    // $rows = array_map("str_getcsv", explode("\n", $csvData));
+    $rows = array_map('str_getcsv', file($csvData));
     // dd($rows);
-    $header = $rows->shift();   //array_shift($rows);
+    $header = array_shift($rows);
     // dd($header);
 
     foreach ($rows as $row)

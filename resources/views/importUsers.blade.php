@@ -29,7 +29,7 @@
             </div>
           @endif
 
-          <form method="POST" action="{{ route('users.import') }}" enctype="multipart/form-data">
+          {{-- <form method="POST" action="{{ route('users.import') }}" enctype="multipart/form-data">
             @csrf
             <div class="card shadow">
               <div class="card-header">
@@ -39,6 +39,27 @@
                 <div class="form-group">
                   <input type="file" name="file" class="form-control">
                   {!! $errors->first("file", '<small class="text-danger">:message</small>') !!}
+                </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit" class="btn btn-success" name="submit">Importar Datos </button>
+              </div>
+            </div>
+          </form> --}}
+
+          <br><hr><br>
+
+          <h3>Importación Opción 2</h3>
+          <form method="POST" action="{{ route('users.import2') }}" enctype="multipart/form-data">
+            @csrf
+            <div class="card shadow">
+              <div class="card-header">
+                <h4>Importación CSV</h4>
+              </div>
+              <div class="card-body">
+                <div class="form-group">
+                  <input type="file" name="csv_file" class="form-control">
+                  {!! $errors->first("csv_file", '<small class="text-danger">:message</small>') !!}
                 </div>
               </div>
               <div class="card-footer">

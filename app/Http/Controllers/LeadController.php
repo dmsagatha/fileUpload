@@ -27,11 +27,15 @@ class LeadController extends Controller
       "csv_file" => "required",
     ]);
 
-    $file = $request->file("csv_file");
-    $csvData = file_get_contents($file);
+    /* $file = $request->file("csv_file");
+    $csvData = file_get_contents($file); */
 
-    $rows = array_map("str_getcsv", explode("\n", $csvData));
-    $header = array_shift($rows);
+    //$rows = array_map("str_getcsv", explode("\n", $csvData));
+    // $rows = array_map('str_getcsv', file($csvData));
+    $rows = collect(array_map('str_getcsv', file($request->file('csv_file')->getRealPath())));
+    // dd($rows);
+    $header = $rows->shift();   //array_shift($rows);
+    // dd($header);
 
     foreach ($rows as $row)
     {
@@ -39,6 +43,7 @@ class LeadController extends Controller
       {
         if ($row[0] != "")
         {
+          // array_combine(array $keys, array $values): array
           $row = array_combine($header, $row);
           $full_name = $row["full_name"];
           $full_name_array = explode(" ", $full_name);
@@ -55,11 +60,11 @@ class LeadController extends Controller
             "last_name"       => $last_name,
             "full_name"       => $row["full_name"],
             "email"           => $row["email"],
-            "phone"           => str_replace("'", "", $row["phone_no"]),
-            "alternate_phone" => $row["alternate_phone_no"],
+            "phone"           => str_replace("'", "", $row["phone"]),
+            "alternate_phone" => $row["alternate_phone"],
             "address"         => $row["address"],
             "city"            => $row["city"],
-            "requirement"     => $row["requirements"],
+            "requirement"     => $row["requirement"],
           ];
 
           // ----------- check if lead already exists ----------------

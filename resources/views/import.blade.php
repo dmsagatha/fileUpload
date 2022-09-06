@@ -15,25 +15,33 @@
       <div class="col-xl-6 col-md-6 col-12 m-auto">
 
         @if(Session::has("success"))
-        <div class="alert alert-success <div class=" alert alert-primary alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">&times;</span>
             <span class="sr-only">Close</span>
           </button>
           <strong>Success!</strong> {{Session::get("success")}}
         </div>
         @elseif(Session::has("failed"))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <strong>Alert!</strong> {{Session::get("failed")}}
+        </div>
 
         @endif
-        <form method="post" action="{{url('parse-csv')}}">
+        <form method="post" action="{{url('parse-csv')}}" enctype="multipart/form-data">
           @csrf
           <div class="card shadow">
             <div class="card-header">
-              <h4> Import CSV File Data </h4>
+              <h4> Import CSV File Data in Laravel 6 </h4>
             </div>
             <div class="card-body">
               <div class="form-group">
-                <input type="file" name="file" class="form-control">
+                <input type="file" name="csv_file" class="form-control">
+                {!!$errors->first("csv_file", '<small class="text-danger">:message</small>') !!}
               </div>
             </div>
             <div class="card-footer">

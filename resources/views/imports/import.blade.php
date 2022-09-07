@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('title', 'Importar Usuarios')
 
 @section('content')
@@ -9,7 +9,7 @@
         <div class="panel-heading">Importar CSV</div>
 
         <div class="panel-body">
-          <form class="form-horizontal" method="POST" action="{{ route('import_parse') }}" enctype="multipart/form-data">
+          <form action="{{ route('import_parse') }}" method="POST" class="mb-4" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group{{ $errors->has('csv_file') ? ' has-error' : '' }}">
@@ -30,7 +30,7 @@
               <div class="col-md-10 col-md-offset-4">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="header" checked>  El archivo contiene encabezados?
+                    <input type="checkbox" name="header" checked> El archivo contiene encabezados?
                   </label>
                 </div>
               </div>

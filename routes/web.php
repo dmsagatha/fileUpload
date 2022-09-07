@@ -20,6 +20,11 @@ Route::controller(ImportsController::class)->group(function () {
   Route::post("importar-usuarios", "import2")->name('users.import2');
 });
 
+/**
+ * https://github.com/LaravelDaily/Laravel-8-Import-CSV
+ * Revisar: Laravel Excel: Import with Relationships
+ * https://www.youtube.com/watch?v=n2WOag1G7Zg
+ */
 Route::controller(ImportController::class)->group(function () {
   Route::get('/daily-usuarios', 'getImport')->name('import');
   Route::post('/import_parse', 'parseImport')->name('import_parse');

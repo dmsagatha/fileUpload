@@ -1,9 +1,8 @@
-@extends('layouts.app')
-
-@section('title', 'Importar Usuarios')
-
-@section('content')
-
+<x-layout>
+  <x-slot:title>
+    Importar Usuarios
+  </x-slot>
+  
   <form action="{{ route('import_process') }}" method="POST">
     @csrf
     <input type="hidden" name="csv_data_file_id" value="{{ $csv_data_file->id }}" />
@@ -47,4 +46,4 @@
       Importar datos
     </button>
   </form>
-@endsection
+</x-layout>

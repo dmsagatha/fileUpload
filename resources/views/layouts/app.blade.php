@@ -7,9 +7,10 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
-    <title>{{ $title ?? 'Importaciones' }}</title>
+    {{-- <title>{{ $title ?? 'Importaciones' }}</title> --}}
+    <title>Importaciones - @yield('title')</title>
 
     @vite(['resources/js/app.js'])
 
@@ -19,13 +20,9 @@
   </head>
   <body>
     <div id="app">
-      <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-          <main class="py-4">
-            {{ $slot }}
-          </main>
-        </div>
-      </nav>
+      <main class="py-4">
+        @yield('content')
+      </main>
     </div>
   </body>
 </html>

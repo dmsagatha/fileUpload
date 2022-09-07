@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Imports;
 use App\Models\User;
 use App\Models\CsvData;
 use App\Imports\UsersImport;
+use App\Http\Requests\CsvImportRequest;
+use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\HeadingRowImport;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Http\Requests\CsvImportRequest;
-use Maatwebsite\Excel\HeadingRowImport;
 
 class ImportController extends Controller
 {
@@ -75,18 +75,7 @@ class ImportController extends Controller
     }*/
 
     // Validaciones de los campos únicos
-
-        foreach ($csv_data as $row) {
-          User::updateOrCreate(
-            ['email' => $row['email']],
-            [
-              'email'    => $row['email'],
-              'name'     => $row['name'],
-              'password' => bcrypt($row['password']),
-            ]
-          );
-        }
-    /* foreach ($csv_data as $row) {
+    foreach ($csv_data as $row) {
       User::updateOrCreate(
         ['email' => $row['email']],
         [
@@ -94,14 +83,8 @@ class ImportController extends Controller
           'name'     => $row['name'],
           'password' => $row['password'],
         ]
-        ['email' => $row['Correo Electronico']],
-        [
-          'email'    => $row['Correo Electronico'],
-          'name'     => $row['Nombre Completo'],
-          'password' => $row['Clave'],
-        ]
       ); 
-    }*/
+    }
 
     return to_route('import')->with('success', 'Importación finalizada.');
   }

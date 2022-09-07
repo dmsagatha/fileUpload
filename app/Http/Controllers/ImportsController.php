@@ -101,42 +101,31 @@ class ImportsController extends Controller
   }
 
   /**
+   * Sin encabezados
    * https://www.youtube.com/watch?v=nGcW4jR9vLg
    */
   public function import2(Request $request)
   {
+    $this->validate($request, [
+      'csv_file' => 'required|file|mimes:csv'
+    ]);
+
     $users = User::pluck('email')->toArray();
 
     $file = fopen($request->csv_file->getRealPath(), 'r');
 
-    while ($csvLine = fgetcsv($file)) {
-      if (!in_array($csvLine[2], $users)) {
-        User::updateOrCreate(
-          ['email' => $csvLine[1]],
+    while ($csvColumn = fgetcsv($file)) {
+      if (!in_array($csvColumn[2], $users)) {
+        User::firstOrCreate(
+          ['email' => $csvColumn[1]],
           [
-          'name'     => $csvLine[0],
-          'email'    => $csvLine[1],
-          'password' => bcrypt($csvLine[2]),
-        ]);
+            'name'     => $csvColumn[0],
+            'email'    => $csvColumn[1],
+            'password' => bcrypt($csvColumn[2]),
+          ]
+        );
       }
     }
-
-    /* $usersArray = [];
-    $now = now()->toDayDateTimeString();
-
-    while ($csvLine = fgetcsv($file)) {
-      if (!in_array($csvLine[2], $users)) {
-        $usersArray[] = [
-          'name'     => $csvLine[0],
-          'email'    => $csvLine[1],
-          'password' => bcrypt($csvLine[2]),
-          /* 'created_at' => $now,
-          'updated_at' => $now,
-        ];
-      }
-    }
-
-    User::updateOrCreate($usersArray); */
 
     fclose($file);
 

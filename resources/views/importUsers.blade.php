@@ -29,7 +29,7 @@
             </div>
           @endif
 
-          {{-- <form method="POST" action="{{ route('users.import') }}" enctype="multipart/form-data">
+          <form method="POST" action="{{ route('users.import') }}" enctype="multipart/form-data">
             @csrf
             <div class="card shadow">
               <div class="card-header">
@@ -45,11 +45,11 @@
                 <button type="submit" class="btn btn-success" name="submit">Importar Datos </button>
               </div>
             </div>
-          </form> --}}
+          </form>
 
-          <br><hr><br>
+          <br><hr>
 
-          <h3>Importación Opción 2</h3>
+          <h4>Importación Opción 2</h4>
           <form method="POST" action="{{ route('users.import2') }}" enctype="multipart/form-data">
             @csrf
             <div class="card shadow">

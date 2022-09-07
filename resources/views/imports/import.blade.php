@@ -1,8 +1,8 @@
-<x-layout>
-  <x-slot:title>
-    Importar Usuarios
-  </x-slot>
+@extends('layouts.app')
+ 
+@section('title', 'Importar Usuarios')
 
+@section('content')
   <div class="row">
     <div class="col-md-12 col-md-offset-2">
       <div class="panel panel-default">
@@ -48,4 +48,4 @@
       </div>
     </div>
   </div>
-</x-layout>
+@endsection

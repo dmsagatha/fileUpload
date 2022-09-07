@@ -1,11 +1,11 @@
-<x-layout>
-  <x-slot:title>
-    Importar Usuarios
-  </x-slot>
+@extends('layouts.app')
+ 
+@section('title', 'Importar Usuarios')
 
+@section('content')
   <form class="form-horizontal" method="POST" action="{{ route('import_process') }}">
   @csrf
-  {{-- <input type="hidden" name="csv_data_file_id" value="{{ $csv_data_file->id }}" /> --}}
+  <input type="hidden" name="csv_data_file_id" value="{{ $csv_data_file->id }}" />
 
     <table class="table">
       @foreach ($csv_data as $row)
@@ -32,4 +32,4 @@
       Importar datos
     </button>
   </form>
-</x-layout>
+@endsection

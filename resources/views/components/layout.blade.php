@@ -17,14 +17,10 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
   </head>
-
   <body>
     <div id="app">
       <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-          <h1>Todos</h1>
-          <hr />
-
           <main class="py-4">
             {{ $slot }}
           </div>

@@ -212,4 +212,9 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+    'db_fields' => [
+        'name',
+        'email',
+        'password'
+    ]
 ];
